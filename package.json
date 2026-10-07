@@ -1,0 +1,120 @@
+{
+  "name": "np-html-editor",
+  "productName": "NP HTML 편집기",
+  "version": "1.1.0",
+  "description": "HTML 파일을 열고 바로 편집·저장하는 데스크톱 편집기",
+  "main": "main.cjs",
+  "author": "NP",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "predist": "node scripts/make-source.cjs",
+    "dist": "electron-builder --win nsis zip --x64 --publish never",
+    "predist:mac": "node scripts/make-source.cjs",
+    "dist:mac": "electron-builder --mac dmg zip --publish never"
+  },
+  "dependencies": {
+    "grapesjs": "0.23.6",
+    "iconv-lite": "0.7.2",
+    "tinymce": "8.9.3"
+  },
+  "devDependencies": {
+    "electron": "44.6.0",
+    "electron-builder": "26.15.3",
+    "playwright": "^1.62.1"
+  },
+  "build": {
+    "appId": "kr.np.html-editor",
+    "productName": "NP HTML 편집기",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "renderer/**/*",
+      "build/icon.png",
+      "LICENSE",
+      "THIRD-PARTY-NOTICES.txt",
+      "README.txt",
+      "package.json"
+    ],
+    "asar": true,
+    "extraFiles": [
+      {
+        "from": "build/source.zip",
+        "to": "NP-HTML-Editor-1.1.0-Source.zip"
+      },
+      {
+        "from": "README.txt",
+        "to": "사용안내.txt"
+      },
+      {
+        "from": "LICENSE",
+        "to": "APP-LICENSE.txt"
+      },
+      {
+        "from": "THIRD-PARTY-NOTICES.txt",
+        "to": "THIRD-PARTY-NOTICES.txt"
+      }
+    ],
+    "electronLanguages": [
+      "ko",
+      "en-US"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "artifactName": "NP-HTML-Editor-${version}-Windows-x64.${ext}",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NP HTML 편집기",
+      "artifactName": "NP-HTML-Editor-Setup-${version}-Windows-x64.exe",
+      "installerLanguages": [
+        "ko_KR",
+        "en_US"
+      ],
+      "language": "1042",
+      "license": "LICENSE"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.png",
+      "artifactName": "NP-HTML-Editor-${version}-macOS-${arch}.${ext}",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "notarize": false
+    },
+    "dmg": {
+      "title": "NP HTML 편집기",
+      "sign": false,
+      "contents": [
+        {
+          "x": 150,
+          "y": 180
+        },
+        {
+          "x": 450,
+          "y": 180,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  }
+}

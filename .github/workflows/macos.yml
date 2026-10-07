@@ -1,0 +1,50 @@
+name: Build and test macOS
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+            appdir: mac-arm64
+          - runner: macos-15-intel
+            arch: x64
+            appdir: mac
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build DMG and ZIP
+        run: npm run dist:mac -- --${{ matrix.arch }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Verify code signature and architecture
+        run: |
+          APP="release/${{ matrix.appdir }}/NP HTML 편집기.app"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          file "$APP/Contents/MacOS/NP HTML 편집기"
+          /usr/libexec/PlistBuddy -c 'Print LSMinimumSystemVersion' "$APP/Contents/Info.plist"
+      - name: Test packaged app on native macOS
+        run: node scripts/smoke-mac.cjs "release/${{ matrix.appdir }}/NP HTML 편집기.app/Contents/MacOS/NP HTML 편집기"
+      - name: Collect release files
+        run: |
+          mkdir -p deliverables
+          cp release/*.dmg release/*.zip deliverables/
+          cp build/source.zip "deliverables/NP-HTML-Editor-1.1.0-macOS-Source-${{ matrix.arch }}.zip"
+          cd deliverables
+          shasum -a 256 * > SHA256SUMS-${{ matrix.arch }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macOS-${{ matrix.arch }}
+          path: deliverables/
+          retention-days: 14

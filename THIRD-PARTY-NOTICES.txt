@@ -1,0 +1,23 @@
+NP HTML 편집기 v1.1.0
+Application: GPL-2.0-or-later
+
+TinyMCE 8.9.3 — GPL-2.0-or-later
+https://github.com/tinymce/tinymce
+Copyright Tiny Technologies, Inc.
+License and source: node_modules/tinymce, corresponding source archive supplied with release.
+
+GrapesJS 0.23.6 — BSD-3-Clause
+https://github.com/GrapesJS/grapesjs
+Copyright Artur Arseniev and contributors.
+License included in node_modules/grapesjs.
+
+Electron 44.6.0 — MIT, with Chromium and other components under their respective licenses
+https://github.com/electron/electron
+Electron LICENSE and LICENSES.chromium.html are included in the application distribution.
+
+iconv-lite 0.7.2 — MIT
+https://github.com/ashtuchkin/iconv-lite
+Its license and dependency licenses are included in the dependency source directories.
+
+Other runtime and build dependencies: see their individual LICENSE files and package-lock.json.
+
