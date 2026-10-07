@@ -132,7 +132,8 @@
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "backgroundColor": "#f5f7fa"
     },
     "afterPack": "scripts/mac-bundle-name.cjs"
   }

@@ -8,9 +8,9 @@ fs.writeFileSync(fixture,html);fs.writeFileSync(path.join(tmp,'local.css'),'h1{c
  const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
  const application=await electron.launch({executablePath:process.argv[2],args:['--user-data-dir='+path.join(tmp,'profile')],env,timeout:60000});
  try{
- const page=await application.firstWindow();page.setDefaultTimeout(30000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await application.firstWindow();page.setDefaultTimeout(30000);const errors=[];page.on('pageerror',e=>{errors.push(e.message);console.error('PAGE ERROR',e.message);});
  const ready=()=>page.waitForFunction(()=>ready&&!busy,null,{polling:100,timeout:30000});
- await page.waitForSelector('#welcome-open');assert((await page.locator('#welcome-open').textContent()).includes('Mac'));
+ await page.waitForLoadState('load');await page.waitForFunction(()=>document.querySelector('#welcome-open')?.textContent.includes('Mac'),null,{polling:100});console.log('Mac UI ready');assert((await page.locator('#welcome-open').textContent()).includes('Mac'));
  assert.equal(await application.evaluate(({app})=>app.getVersion()),'1.1.0');
  const menu=await application.evaluate(({Menu})=>Menu.getApplicationMenu().items.map(x=>x.label));assert(menu.includes('파일'));assert(menu.includes('편집'));
  await application.evaluate(({dialog},file)=>{dialog.showOpenDialog=async()=>({canceled:false,filePaths:[file]});},fixture);
@@ -33,3 +33,4 @@ fs.writeFileSync(fixture,html);fs.writeFileSync(path.join(tmp,'local.css'),'h1{c
  console.log('PASS macOS '+process.arch+': packaged launch, native menu, Korean edit, Cmd+S, backup, both engines, Save As + local CSS, cancel close, save on close');
  }finally{await application.close().catch(()=>{});}
 })().catch(e=>{console.error(e);process.exit(1);});
+
