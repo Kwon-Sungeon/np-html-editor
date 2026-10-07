@@ -1,0 +1,36 @@
+name: Stage verified macOS release
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require successful native tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh api repos/${{ github.repository }}/actions/runs/37583150620 --jq .conclusion)" = success
+          test "$(gh api repos/${{ github.repository }}/actions/runs/37583150620 --jq .head_sha)" = 1eae8d1$(gh api repos/${{ github.repository }}/actions/runs/37583150620 --jq '.head_sha[7:]')
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 37583150620
+          path: artifacts
+      - name: Verify and stage files
+        run: |
+          (cd artifacts/macOS-arm64 && sha256sum -c SHA256SUMS-arm64.txt)
+          (cd artifacts/macOS-x64 && sha256sum -c SHA256SUMS-x64.txt)
+          mkdir release
+          cp artifacts/macOS-*/*.dmg release/
+          cp artifacts/macOS-arm64/*-macOS-arm64.zip artifacts/macOS-x64/*-macOS-x64.zip release/
+          cp artifacts/macOS-arm64/*-Source-arm64.zip release/NP-HTML-Editor-1.1.0-macOS-Source.zip
+          (cd release && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt)
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHA=$(gh api repos/${{ github.repository }}/actions/runs/37583150620 --jq .head_sha)
+          gh release create v1.1.0-macos release/* --repo "${{ github.repository }}" --target "$SHA" --title 'NP HTML 편집기 v1.1.0 · macOS' --notes 'Native macOS builds verified on Apple Silicon and Intel. Release notes pending publication.' --draft
