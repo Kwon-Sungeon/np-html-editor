@@ -34,5 +34,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           SHA=$(gh api repos/${{ github.repository }}/actions/runs/37585855501 --jq .head_sha)
-          gh release create v1.1.1-macos release/* --repo "${{ github.repository }}" --target "$SHA" --title 'NP HTML 편집기 v1.1.1 · macOS' --notes 'Native macOS builds verified on Apple Silicon and Intel. Release notes pending publication.' --draft
+          gh release upload v1.1.1-macos release/* --repo "${{ github.repository }}"
+
 
