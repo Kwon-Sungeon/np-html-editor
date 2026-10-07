@@ -11,6 +11,16 @@ HTML 파일을 열고 화면에서 수정한 뒤 원래 파일에 저장하는 W
 Windows 10/11 64비트. 별도 Node.js 설치나 계정이 필요하지 않습니다.
 기존 버전은 종료한 뒤 같은 위치에 새 버전을 설치하세요.
 
+## macOS 다운로드 · v1.1.0
+
+[Apple Silicon Mac용 DMG (M 시리즈)](https://github.com/Kwon-Sungeon/np-html-editor/releases/download/v1.1.0-macos/NP-HTML-Editor-1.1.0-macOS-arm64.dmg) · [Intel Mac용 DMG](https://github.com/Kwon-Sungeon/np-html-editor/releases/download/v1.1.0-macos/NP-HTML-Editor-1.1.0-macOS-x64.dmg)
+
+DMG를 열고 앱을 **응용 프로그램**으로 드래그하세요. Mac에서는 **⌘O / ⌘S / ⌘⇧S**를 사용합니다.
+
+Apple Developer ID 서명·공증을 받지 않은 배포본입니다. 첫 실행이 차단되면 [Apple의 실행 허용 안내](https://support.apple.com/ko-kr/102445)를 확인하세요.
+
+[Mac 전용 배포 페이지·ZIP·소스 코드](https://github.com/Kwon-Sungeon/np-html-editor/releases/tag/v1.1.0-macos)
+
 ## 사용 방법
 
 1. 프로그램 실행 → **내 PC에서 열기** → HTML 파일 선택
@@ -41,3 +51,4 @@ TinyMCE와 GrapesJS 기반입니다. Microsoft Office와는 별개의 프로그�
 ## 라이선스
 
 GPL-2.0-or-later. 앱과 라이브러리의 소스·라이선스는 설치 파일에 포함된 Source ZIP과 릴리스의 Source ZIP에서 확인할 수 있습니다. 편집하는 문서의 권리는 해당 권리자에게 귀속됩니다.
+
