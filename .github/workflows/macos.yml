@@ -36,11 +36,14 @@ jobs:
           /usr/libexec/PlistBuddy -c 'Print LSMinimumSystemVersion' "$APP/Contents/Info.plist"
       - name: Test packaged app on native macOS
         run: node scripts/smoke-mac.cjs "release/${{ matrix.appdir }}/NP HTML 편집기.app/Contents/MacOS/NP HTML 편집기"
+      - name: Verify and launch apps copied from final DMG and ZIP
+        run: python3 scripts/verify-mac-containers.py ${{ matrix.arch }}
       - name: Collect release files
         run: |
           mkdir -p deliverables
           cp release/*.dmg release/*.zip deliverables/
-          cp build/source.zip "deliverables/NP-HTML-Editor-1.1.0-macOS-Source-${{ matrix.arch }}.zip"
+          cp build/source.zip "deliverables/NP-HTML-Editor-1.1.1-macOS-Source-${{ matrix.arch }}.zip"
+          cp container-verification-*.json deliverables/
           cd deliverables
           shasum -a 256 * > SHA256SUMS-${{ matrix.arch }}.txt
       - uses: actions/upload-artifact@v4

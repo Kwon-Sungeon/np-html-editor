@@ -1,4 +1,4 @@
-NP HTML 편집기 v1.1.0
+NP HTML 편집기 v1.1.1
 Application: GPL-2.0-or-later
 
 TinyMCE 8.9.3 — GPL-2.0-or-later

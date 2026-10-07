@@ -1,7 +1,7 @@
 {
   "name": "np-html-editor",
   "productName": "NP HTML 편집기",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "HTML 파일을 열고 바로 편집·저장하는 데스크톱 편집기",
   "main": "main.cjs",
   "author": "NP",
@@ -57,7 +57,7 @@
       "extraFiles": [
         {
           "from": "build/source.zip",
-          "to": "NP-HTML-Editor-1.1.0-Source.zip"
+          "to": "NP-HTML-Editor-1.1.1-Source.zip"
         },
         {
           "from": "README.txt",
@@ -102,11 +102,11 @@
       "extraResources": [
         {
           "from": "build/source.zip",
-          "to": "NP-HTML-Editor-1.1.0-Source.zip"
+          "to": "NP-HTML-Editor-1.1.1-Source.zip"
         },
         {
           "from": "README.txt",
-          "to": "사용안내.txt"
+          "to": "README-KO.txt"
         },
         {
           "from": "LICENSE",

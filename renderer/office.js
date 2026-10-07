@@ -35,7 +35,7 @@ $('clear-recent').onclick=async()=>{try{await result(np.clearRecent());await ref
 showHome();uiBusy(false);
 
 if(np.platform==='darwin'){
-  document.querySelector('.home-nav-bottom small').textContent='버전 1.1.0 · macOS';
+  document.querySelector('.home-nav-bottom small').textContent='버전 1.1.1 · macOS';
   document.querySelector('#welcome-open strong').textContent='내 Mac에서 열기';
   document.querySelectorAll('[title]').forEach(el=>el.title=el.title.replaceAll('Ctrl+','⌘'));
   const font=$('font-family').querySelector('option[value="맑은 고딕"]');font.value='Apple SD Gothic Neo';font.textContent='Apple SD Gothic Neo';
