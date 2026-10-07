@@ -133,6 +133,7 @@
           "path": "/Applications"
         }
       ]
-    }
+    },
+    "afterPack": "scripts/mac-bundle-name.cjs"
   }
 }
