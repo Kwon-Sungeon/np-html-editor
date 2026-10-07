@@ -42,24 +42,6 @@
       "package.json"
     ],
     "asar": true,
-    "extraFiles": [
-      {
-        "from": "build/source.zip",
-        "to": "NP-HTML-Editor-1.1.0-Source.zip"
-      },
-      {
-        "from": "README.txt",
-        "to": "사용안내.txt"
-      },
-      {
-        "from": "LICENSE",
-        "to": "APP-LICENSE.txt"
-      },
-      {
-        "from": "THIRD-PARTY-NOTICES.txt",
-        "to": "THIRD-PARTY-NOTICES.txt"
-      }
-    ],
     "electronLanguages": [
       "ko",
       "en-US"
@@ -71,7 +53,25 @@
         "zip"
       ],
       "artifactName": "NP-HTML-Editor-${version}-Windows-x64.${ext}",
-      "signExecutable": false
+      "signExecutable": false,
+      "extraFiles": [
+        {
+          "from": "build/source.zip",
+          "to": "NP-HTML-Editor-1.1.0-Source.zip"
+        },
+        {
+          "from": "README.txt",
+          "to": "사용안내.txt"
+        },
+        {
+          "from": "LICENSE",
+          "to": "APP-LICENSE.txt"
+        },
+        {
+          "from": "THIRD-PARTY-NOTICES.txt",
+          "to": "THIRD-PARTY-NOTICES.txt"
+        }
+      ]
     },
     "nsis": {
       "oneClick": false,
@@ -98,7 +98,25 @@
       "artifactName": "NP-HTML-Editor-${version}-macOS-${arch}.${ext}",
       "identity": "-",
       "hardenedRuntime": false,
-      "notarize": false
+      "notarize": false,
+      "extraResources": [
+        {
+          "from": "build/source.zip",
+          "to": "NP-HTML-Editor-1.1.0-Source.zip"
+        },
+        {
+          "from": "README.txt",
+          "to": "사용안내.txt"
+        },
+        {
+          "from": "LICENSE",
+          "to": "APP-LICENSE.txt"
+        },
+        {
+          "from": "THIRD-PARTY-NOTICES.txt",
+          "to": "THIRD-PARTY-NOTICES.txt"
+        }
+      ]
     },
     "dmg": {
       "title": "NP HTML 편집기",
